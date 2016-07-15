@@ -8,6 +8,8 @@ import javax.imageio.ImageIO;
 
 public class ImageLoader{
 	
+	// This loads images, dont touch this
+	
 	public static BufferedImage loadImage(String path){
 		try{
 		return ImageIO.read(new File(path));

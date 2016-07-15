@@ -13,7 +13,6 @@ import states.StateManager;
 public class Engine implements Runnable {
 
 	//Primitive DataTypes Declaration
-	
 	public String title;
 	private int width;
 	private int height;
@@ -26,6 +25,8 @@ public class Engine implements Runnable {
 	private Graphics g;
 	private Handler handler;
 
+	
+	//Handler Declaration
 	private KeyManager keyManager;
 	private MouseManager mouseManager;
 	
@@ -36,8 +37,11 @@ public class Engine implements Runnable {
 		this.height = frameY;
 		this.title = title;
 		
+		
+		//Initialize Everything here
 		handler = new Handler(this);
 		display = new Display(title,width,height);
+		
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager();
 		
@@ -57,6 +61,7 @@ public class Engine implements Runnable {
 		StateManager.setCurrentState(gameState);
 	}
 
+	//Updates the game
 	private void update() {
 		keyManager.tick();
 		if (StateManager.getCurrentState() != null){
@@ -64,6 +69,7 @@ public class Engine implements Runnable {
 		}
 	}
 
+	//Renders the Game
 	private void render() {
 		bs = display.getCanvas().getBufferStrategy();
 		if (bs == null) {
@@ -86,6 +92,8 @@ public class Engine implements Runnable {
 		g.dispose();
 	}
 
+	
+	//This is the game loop
 	@Override
 	public void run() {
 

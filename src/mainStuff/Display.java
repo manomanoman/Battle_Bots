@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 
 public class Display extends JFrame {
 
+	// This creates the JFrame
+	
 	private JFrame frame;
 	private Canvas canvas;
 

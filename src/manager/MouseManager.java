@@ -25,6 +25,35 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 			handler.getEngine().getGameState().getWorld().getPlayer().shoot();
 		}
 		
+		System.out.println(mouseX + " " + mouseY);
+		
+		// Handles all the paths from the home screen
+		
+		if (StateManager.getCurrentState().equals(handler.getEngine().getMenuState())){
+			if (mouseX >= 701 && mouseX <= 899 && mouseY >= 350 && mouseY <= 549){
+				StateManager.setCurrentState(handler.getEngine().getGameState());			}
+		} 
+		if (StateManager.getCurrentState().equals(handler.getEngine().getMenuState())){
+			if (mouseX >= 473 && mouseX <= 670 && mouseY >= 350 && mouseY <= 549){
+				StateManager.setCurrentState(handler.getEngine().getSettingsState());	
+			}
+		}
+		if (StateManager.getCurrentState().equals(handler.getEngine().getMenuState())){
+			if (mouseX >= 923 && mouseX <= 1125 && mouseY >= 350 && mouseY <= 549){
+				StateManager.setCurrentState(handler.getEngine().getInstructionsState());	
+			}
+		}
+		
+		//handles the return botton for the settings and instruction screen
+		
+		if (StateManager.getCurrentState().equals(handler.getEngine().getSettingsState())  || StateManager.getCurrentState().equals(handler.getEngine().getInstructionsState())){
+			if (mouseX >= 1481 && mouseX <= 1581 && mouseY >= 17 && mouseY <= 113){
+				StateManager.setCurrentState(handler.getEngine().getMenuState());	
+			}
+		}
+		
+		
+		
 	}
 
 	@Override

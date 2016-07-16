@@ -8,6 +8,9 @@ import file.ImageLoader;
 import manager.KeyManager;
 import manager.MouseManager;
 import states.GameState;
+import states.InstructionsState;
+import states.MenuState;
+import states.SettingsState;
 import states.StateManager;
 
 public class Engine implements Runnable {
@@ -31,6 +34,9 @@ public class Engine implements Runnable {
 	private MouseManager mouseManager;
 	
 	private GameState gameState;
+	private MenuState menuState;
+	private SettingsState settingsState;
+	private InstructionsState instructionsState;
 
 	public Engine(String title, int frameX, int frameY) {
 		this.width = frameX;
@@ -45,8 +51,10 @@ public class Engine implements Runnable {
 		keyManager = new KeyManager();
 		mouseManager = new MouseManager(handler);
 		
-		
-		gameState = new GameState(handler);
+		menuState = new MenuState(ImageLoader.loadImage("res\\screens\\home_menu_screen.png"));
+		gameState = new GameState(handler, null);
+		settingsState = new SettingsState(ImageLoader.loadImage("res\\screens\\settings_screen.png"));
+		instructionsState = new InstructionsState(ImageLoader.loadImage("res\\screens\\instructions_screen.png"));
 		
 		display.getFrame().addKeyListener(keyManager);
 		display.getFrame().addMouseListener(mouseManager);
@@ -62,7 +70,7 @@ public class Engine implements Runnable {
 	}
 
 	private void initialize() {
-		StateManager.setCurrentState(gameState);
+		StateManager.setCurrentState(menuState);
 	}
 
 	//Updates the game
@@ -123,7 +131,7 @@ public class Engine implements Runnable {
 			}
 
 			if (timer >= 1000000000) {
-				System.out.println("Ticks and Frames : " + ticks);
+				//System.out.println("Ticks and Frames : " + ticks);
 				ticks = 0;
 				timer = 0;
 			}
@@ -249,6 +257,30 @@ public class Engine implements Runnable {
 
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
+	}
+
+	public MenuState getMenuState() {
+		return menuState;
+	}
+
+	public void setMenuState(MenuState menuState) {
+		this.menuState = menuState;
+	}
+
+	public SettingsState getSettingsState() {
+		return settingsState;
+	}
+
+	public void setSettingsState(SettingsState settingsState) {
+		this.settingsState = settingsState;
+	}
+
+	public InstructionsState getInstructionsState() {
+		return instructionsState;
+	}
+
+	public void setInstructionsState(InstructionsState instructionsState) {
+		this.instructionsState = instructionsState;
 	}
 
 }

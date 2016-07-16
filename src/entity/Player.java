@@ -90,7 +90,9 @@ public class Player extends Character{
 		int barrelLength = 10;
 		double barrelTip_X = barrelLength*Math.cos(theta) + x-mouseX + 32;
 		double barrelTip_Y = barrelLength*Math.sin(theta) + y-mouseY + 32;
-		Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"), (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
+		//This is what pat coded, hell have to fix this eventually
+		//Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"), (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
+		Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"),x+(width/2),y+(height/2), 16, 16);
 		World.allThings.add(p);
 	}
 	

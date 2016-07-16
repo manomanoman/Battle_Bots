@@ -1,6 +1,7 @@
 package entity;
 
 import java.awt.Graphics;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import file.ImageLoader;
@@ -29,6 +30,15 @@ public class World {
 	public void update(){
 		for (Entity e : allThings){
 			e.update();
+		}
+		
+		for (Iterator<Entity> kente = allThings.iterator() ; kente.hasNext();){
+			Entity e  = kente.next();
+			
+			if (e.x <= 0 || e.x >= 1600 || e.y <= 0 || e.y >= 900){
+				kente.remove();
+			}
+			
 		}
 		
 		System.out.println("Entities in game " + allThings.size());

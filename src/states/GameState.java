@@ -1,6 +1,7 @@
 package states;
 
 import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 
 import entity.World;
 import mainStuff.Handler;
@@ -11,10 +12,15 @@ public class GameState extends State{
 	
 	private Handler handler;
 	
-	public GameState(Handler handler){
+	
+	
+	public GameState(Handler handler,BufferedImage b) {
+		super(b);
 		this.handler = handler;
-		world = new World( handler);
+		world = new World(handler);
 	}
+
+	
 	
 	@Override
 	public void update() {

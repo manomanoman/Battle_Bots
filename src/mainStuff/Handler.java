@@ -1,5 +1,6 @@
 package mainStuff;
 import manager.KeyManager;
+import manager.MouseManager;
 
 public class Handler {
 	
@@ -13,6 +14,10 @@ public class Handler {
 	
 	public KeyManager getKeyManager(){
 		return e.getKeyManager();
+	}
+	
+	public MouseManager getMouseManager(){
+		return e.getMouseManager();
 	}
 
 }

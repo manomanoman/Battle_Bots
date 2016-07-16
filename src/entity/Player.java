@@ -12,7 +12,7 @@ import mainStuff.Handler;
 
 public class Player extends Character{
 	
-	
+	// Default Player width and height is 64x64
 
 	public Player(Handler handler,BufferedImage b, int x, int y, int width, int height) {
 		super(handler,b, x, y, width, height);
@@ -21,6 +21,8 @@ public class Player extends Character{
 	@Override
 	public void update() {
 		move();
+		
+		
 	}
 
 	@Override
@@ -29,6 +31,15 @@ public class Player extends Character{
 		// This rectangle represents the bounding box, aka what we will use to check collisions
 		g.setColor(Color.red);
 		g.fillRect(x, y, width, height);
+		
+		//User Info
+		g.drawString("Player X " + x, 10, 10);
+		g.drawString("Player Y " + y, 10, 25);
+		g.drawString("MouseX " + handler.getMouseManager().getMouseX(), 10, 40);
+		g.drawString("MouseY " + handler.getMouseManager().getMouseY(), 10, 55);
+		
+		
+		
 		
 		AffineTransform playerRotation = AffineTransform.getTranslateInstance(x, y);
 		playerRotation.rotate(Math.toRadians(0),32,32);

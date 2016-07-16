@@ -13,15 +13,20 @@ import mainStuff.Handler;
 public class Player extends Character{
 	
 	// Default Player width and height is 64x64
+	
+	private int mouseX,mouseY;
 
 	public Player(Handler handler,BufferedImage b, int x, int y, int width, int height) {
 		super(handler,b, x, y, width, height);
+		mouseX = 0;
+		mouseY = 0;
 	}
 
 	@Override
 	public void update() {
 		move();
-		
+		mouseX = handler.getMouseManager().getMouseX();
+		mouseY = handler.getMouseManager().getMouseY();
 		
 	}
 
@@ -35,8 +40,8 @@ public class Player extends Character{
 		//User Info
 		g.drawString("Player X " + x, 10, 10);
 		g.drawString("Player Y " + y, 10, 25);
-		g.drawString("MouseX " + handler.getMouseManager().getMouseX(), 10, 40);
-		g.drawString("MouseY " + handler.getMouseManager().getMouseY(), 10, 55);
+		g.drawString("MouseX " + mouseX, 10, 40);
+		g.drawString("MouseY " + mouseY, 10, 55);
 		
 		
 		

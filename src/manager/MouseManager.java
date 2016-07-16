@@ -21,9 +21,7 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 		mouseX = e.getX();
 		mouseY = e.getY();
 		
-		if (StateManager.getCurrentState().equals(handler.getEngine().getGameState())){
-			handler.getEngine().getGameState().getWorld().getPlayer().shoot();
-		}
+		
 		
 		System.out.println(mouseX + " " + mouseY);
 		
@@ -74,6 +72,10 @@ public class MouseManager implements MouseListener,MouseMotionListener{
 	public void mousePressed(MouseEvent e) {
 		mouseX = e.getX();
 		mouseY = e.getY();
+		
+		if (StateManager.getCurrentState().equals(handler.getEngine().getGameState())){
+			handler.getEngine().getGameState().getWorld().getPlayer().shoot();
+		}
 		
 	}
 

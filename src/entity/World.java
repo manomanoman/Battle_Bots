@@ -41,7 +41,7 @@ public class World {
 			
 		}
 		
-		System.out.println("Entities in game " + allThings.size());
+		//System.out.println("Entities in game " + allThings.size());
 	}
 	
 	// This loops through the linkedList and renders every entity in it

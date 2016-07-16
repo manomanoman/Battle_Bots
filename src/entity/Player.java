@@ -18,15 +18,112 @@ public class Player extends Character{
 	private float mouseX,mouseY;
 	private double theta;
 	private int quadrant;
+	
+	//Player Stats
+	private int health,maxHealth;
+	private int stamina,maxStamina;
+	private int armor,maxArmor;
+	private int experience,maxExperience;
+	
+	//Regen Stats
+	private int healthRegen;
+	private int armorRegen;
+	private int staminaRegen;
+	
+	
+	private int speed;
+	
+	private Color healthColor = new Color(255,94,94);
+	private Color armorColor = new Color(122,213,245);
+	private Color staminaColor = new Color(250,248,140);
+	private Color experiencecolor = new Color(129,247,133);
+	
+	// booleans
+	private boolean turboActive = false;
+	
+	
+	private BufferedImage ui = ImageLoader.loadImage("res\\screens\\user_bar.png");
 
 	public Player(Handler handler,BufferedImage b, int x, int y, int width, int height) {
 		super(handler,b, x, y, width, height);
 		mouseX = 0;
 		mouseY = 0;
+		
+		//regen rate
+		healthRegen = 1;
+		armorRegen = 1;
+		staminaRegen = 1;
+		
+		//maximum stat
+		maxHealth = 1000;
+		maxStamina = 100;
+		maxArmor = 500;
+		maxExperience = 100;
+		
+		
+		//current stats
+		health = 1000;
+		stamina = 100;
+		armor = 100;
+		experience = 100;
+		
+		speed = 2;
 	}
 
 	@Override
 	public void update() {
+		
+		adjustStats();
+		
+		//delete after
+		if (x >= 500){
+			
+			
+			if (armor > 0){
+				armor -=3;
+			}else{
+				health-=5;
+			}
+			
+		}
+		//delete before
+		
+		//health and armor regen
+		
+		if (armor < maxArmor){
+			armor += armorRegen;
+		}
+		if (health < maxHealth){
+			health += healthRegen;
+		}
+		
+		if (turboActive){
+			
+			if (stamina <= 0){
+				turboActive = false;
+			}
+			
+			speed = 4;
+			stamina --;
+		}
+		
+		if (!turboActive){
+			speed = 2;
+		}
+		
+		if (stamina < 100 && !turboActive){
+			stamina+= staminaRegen;
+		}
+		
+		
+		if (handler.getKeyManager().shift && stamina == 100){
+			turboActive = true;
+		}
+		
+		
+		
+		
+		
 		move();
 		int centerPNG = 64/2;
 		mouseX = handler.getMouseManager().getMouseX();
@@ -48,6 +145,8 @@ public class Player extends Character{
 
 	@Override
 	public void render(Graphics g) {
+		
+		g.fillRect(500, 0, 1100, 900);
 		
 		// This rectangle represents the bounding box, aka what we will use to check collisions
 		g.setColor(Color.red);
@@ -83,6 +182,22 @@ public class Player extends Character{
 		
 		//g.drawImage(b, x,y,null);
 		
+		// User Bar
+		
+		g.drawImage(ui,0,-15,1600,900,null);
+		//Health
+		g.setColor(healthColor);
+		g.fillRect(59, 845, health*700/maxHealth, 5);
+		//Armor
+		g.setColor(armorColor);
+		g.fillRect(59, 815, armor*700/maxArmor, 5);
+		//Stamina
+		g.setColor(staminaColor);
+		g.fillRect(870, 845, stamina*700/maxStamina, 5);
+		//Experience
+		g.setColor(experiencecolor);
+		g.fillRect(870, 815, experience*700/maxExperience, 5);
+		
 		
 	}
 	
@@ -98,17 +213,119 @@ public class Player extends Character{
 	
 	private void move(){
 		if (handler.getKeyManager().left){
-			x--;
+			x-=speed;
 		}
 		if (handler.getKeyManager().right){
-			x++;
+			x+=speed;
 		}
 		if (handler.getKeyManager().up){
-			y--;
+			y-=speed;
 		}
 		if (handler.getKeyManager().down){
-			y++;
+			y+=speed;
 		}
+	}
+	
+	// this method adjusts stats if they are over the maximum back to the maximum
+	
+	private void adjustStats(){
+		if (stamina > maxStamina){
+			stamina = maxStamina;
+		}
+		if (health > maxHealth){
+			health = maxHealth;
+		}
+		if (armor > maxArmor){
+			armor = maxArmor;
+		}
+	}
+
+	public int getHealth() {
+		return health;
+	}
+
+	public void setHealth(int health) {
+		this.health = health;
+	}
+
+	public int getStamina() {
+		return stamina;
+	}
+
+	public void setStamina(int stamina) {
+		this.stamina = stamina;
+	}
+
+	public int getArmor() {
+		return armor;
+	}
+
+	public void setArmor(int armor) {
+		this.armor = armor;
+	}
+
+	public int getExperience() {
+		return experience;
+	}
+
+	public void setExperience(int experience) {
+		this.experience = experience;
+	}
+
+	public int getMaxHealth() {
+		return maxHealth;
+	}
+
+	public void setMaxHealth(int maxHealth) {
+		this.maxHealth = maxHealth;
+	}
+
+	public int getMaxStamina() {
+		return maxStamina;
+	}
+
+	public void setMaxStamina(int maxStamina) {
+		this.maxStamina = maxStamina;
+	}
+
+	public int getMaxArmor() {
+		return maxArmor;
+	}
+
+	public void setMaxArmor(int maxArmor) {
+		this.maxArmor = maxArmor;
+	}
+
+	public int getMaxExperience() {
+		return maxExperience;
+	}
+
+	public void setMaxExperience(int maxExperience) {
+		this.maxExperience = maxExperience;
+	}
+
+	public int getStaminaRegen() {
+		return staminaRegen;
+	}
+
+	public void setStaminaRegen(int staminaRegen) {
+		this.staminaRegen = staminaRegen;
+	}
+
+	public int getArmorRegen() {
+		return armorRegen;
+	}
+
+	public void setArmorRegen(int armorRegen) {
+		this.armorRegen = armorRegen;
+	}
+
+	public int getHealthRegen() {
+		return healthRegen;
+	}
+
+	public void setHealthRegen(int healthRegen) {
+		this.healthRegen = healthRegen;
 	}
 
 }

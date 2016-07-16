@@ -3,14 +3,27 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import mainStuff.Handler;
+import states.StateManager;
+
 public class MouseManager implements MouseListener,MouseMotionListener{
 	
 	private int mouseX,mouseY;
+	
+	private Handler handler;
+	
+	public MouseManager(Handler handler){
+		this.handler = handler;
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		mouseX = e.getX();
 		mouseY = e.getY();
+		
+		if (StateManager.getCurrentState().equals(handler.getEngine().getGameState())){
+			handler.getEngine().getGameState().getWorld().getPlayer().shoot();
+		}
 		
 	}
 

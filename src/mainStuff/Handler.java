@@ -20,4 +20,7 @@ public class Handler {
 		return e.getMouseManager();
 	}
 
+	public Engine getEngine(){
+		return e;
+	}
 }

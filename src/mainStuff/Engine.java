@@ -43,7 +43,7 @@ public class Engine implements Runnable {
 		display = new Display(title,width,height);
 		
 		keyManager = new KeyManager();
-		mouseManager = new MouseManager();
+		mouseManager = new MouseManager(handler);
 		
 		
 		gameState = new GameState(handler);

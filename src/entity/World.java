@@ -30,6 +30,8 @@ public class World {
 		for (Entity e : allThings){
 			e.update();
 		}
+		
+		System.out.println("Entities in game " + allThings.size());
 	}
 	
 	// This loops through the linkedList and renders every entity in it
@@ -37,6 +39,14 @@ public class World {
 		for (Entity e : allThings){
 			e.render(g);
 		}
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 }

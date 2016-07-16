@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
+import file.ImageLoader;
 import mainStuff.Handler;
 
 public class Player extends Character{
@@ -65,15 +66,6 @@ public class Player extends Character{
 			mouseY++;
 		}
 		
-//		if (mouseY > 0 && mouseX > 0){
-//			theta = Math.atan((y-mouseY)/(x-mouseX));
-//		} else if (mouseY > 0 && mouseX < 0) {
-//			theta = Math.atan((y-mouseY)/(x-mouseX)) + Math.PI/2;
-//		} else if (mouseY < 0 && mouseX < 0) {
-//			theta = Math.atan((y-mouseY)/(x-mouseX)) + Math.PI;
-//		} else if (mouseY < 0 && mouseX > 0) {
-//			theta = Math.atan((y-mouseY)/(x-mouseX)) + 3*Math.PI/2;
-//		}
 		
 		float mouseRelativeY = y-mouseY;
 		float mouseRelativeX = x-mouseX;
@@ -92,6 +84,14 @@ public class Player extends Character{
 		//g.drawImage(b, x,y,null);
 		
 		
+	}
+	
+	public void shoot(){
+		int barrelLength = 10;
+		double barrelTip_X = barrelLength*Math.cos(theta) + x-mouseX + 32;
+		double barrelTip_Y = barrelLength*Math.sin(theta) + y-mouseY + 32;
+		Projectile p = new Projectile(handler, ImageLoader.loadImage("res\\entities\\object\\projectile\\projectile_1.png"), (int)barrelTip_X,(int) barrelTip_Y, 16, 16);
+		World.allThings.add(p);
 	}
 	
 	private void move(){

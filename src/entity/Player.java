@@ -14,7 +14,9 @@ public class Player extends Character{
 	
 	// Default Player width and height is 64x64
 	
-	private int mouseX,mouseY;
+	private float mouseX,mouseY;
+	private double theta;
+	private int quadrant;
 
 	public Player(Handler handler,BufferedImage b, int x, int y, int width, int height) {
 		super(handler,b, x, y, width, height);
@@ -25,9 +27,22 @@ public class Player extends Character{
 	@Override
 	public void update() {
 		move();
+		int centerPNG = 64/2;
 		mouseX = handler.getMouseManager().getMouseX();
 		mouseY = handler.getMouseManager().getMouseY();
-		
+		if (y-mouseY + centerPNG > 0 && x-mouseX+centerPNG > 0){
+			theta = Math.atan((y-mouseY + centerPNG )/(x-mouseX+centerPNG )) + Math.PI;
+			quadrant = 1;
+		} else if (y-mouseY + centerPNG > 0 && x-mouseX+centerPNG < 0) {
+			theta = Math.atan((y-mouseY + centerPNG )/(x-mouseX+centerPNG));
+			quadrant = 2;
+		} else if (y-mouseY + centerPNG < 0 && x-mouseX+centerPNG < 0) {
+			theta = Math.atan((y-mouseY + centerPNG )/(x-mouseX+centerPNG));
+			quadrant = 3;
+		} else if (y-mouseY + centerPNG < 0 && x-mouseX+centerPNG > 0) {
+			theta = Math.atan((y-mouseY + centerPNG )/(x-mouseX+centerPNG)) + Math.PI;
+			quadrant = 4;
+		}
 	}
 
 	@Override
@@ -42,12 +57,31 @@ public class Player extends Character{
 		g.drawString("Player Y " + y, 10, 25);
 		g.drawString("MouseX " + mouseX, 10, 40);
 		g.drawString("MouseY " + mouseY, 10, 55);
-		
-		
-		
+	
 		
 		AffineTransform playerRotation = AffineTransform.getTranslateInstance(x, y);
-		playerRotation.rotate(Math.toRadians(0),32,32);
+		if (mouseX == 0 || mouseY == 0){
+			mouseX ++;
+			mouseY++;
+		}
+		
+//		if (mouseY > 0 && mouseX > 0){
+//			theta = Math.atan((y-mouseY)/(x-mouseX));
+//		} else if (mouseY > 0 && mouseX < 0) {
+//			theta = Math.atan((y-mouseY)/(x-mouseX)) + Math.PI/2;
+//		} else if (mouseY < 0 && mouseX < 0) {
+//			theta = Math.atan((y-mouseY)/(x-mouseX)) + Math.PI;
+//		} else if (mouseY < 0 && mouseX > 0) {
+//			theta = Math.atan((y-mouseY)/(x-mouseX)) + 3*Math.PI/2;
+//		}
+		
+		float mouseRelativeY = y-mouseY;
+		float mouseRelativeX = x-mouseX;
+		g.drawString("Theta " + Math.toDegrees(theta), 10, 65);		
+		g.drawString("Mouse Relative Y" + mouseRelativeY, 10, 75);	
+		g.drawString("Mouse Relative X" + mouseRelativeX, 10, 85);	
+		g.drawString("Quandrant " + quadrant, 10, 95);				
+		playerRotation.rotate(theta,32,32);
 		
 		Graphics2D gg = (Graphics2D) g;
 		gg.drawImage(b,playerRotation,null);

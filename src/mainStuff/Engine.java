@@ -101,7 +101,7 @@ public class Engine implements Runnable {
 	@Override
 	public void run() {
 
-		int fps = 60;
+		int fps = 30;
 		double timePerTick = 1000000000 / fps;
 		double delta = 0;
 		long now;
